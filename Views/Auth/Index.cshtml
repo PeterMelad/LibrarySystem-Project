@@ -1,0 +1,50 @@
+﻿@model IEnumerable<WebApplication1.Models.Authors>
+
+<h1>All Authors</h1>
+<p>
+    <a asp-action="CreateAuthor">Create New Author</a>
+</p>
+<table class="table">
+    <thead>
+
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Describtion
+            </th>
+            <th>
+                Books
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var items in Model)
+        {
+        <tr>
+
+            <td>@Html.DisplayFor(m => items.Name) </td>
+
+            <td>@Html.DisplayFor(m => items.Describtion) </td>
+
+            <td>
+                @foreach (var items2 in items.book)
+                {
+                    @Html.DisplayFor(m => items2.Title)
+                    <br />
+                }
+            </td>
+
+            <td>
+                <a asp-action="Edit" asp-route-id=@items.id> Edit </a> |
+                <a asp-action="Details" asp-route-id="@items.id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@items.id">Delete</a>
+            </td>
+        </tr>
+        }
+
+    </tbody>
+</table>
+
+

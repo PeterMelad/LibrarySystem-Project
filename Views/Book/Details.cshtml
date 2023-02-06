@@ -1,0 +1,35 @@
+﻿@model WebApplication1.Models.Books
+
+
+<h1>Book Details </h1>
+
+
+<p>
+    @Html.ActionLink("Back To Book List", "Index")
+</p>
+
+<table class="table">
+    <tr>
+        <td> Title : </td>
+        <td>  @Model.Title</td>
+    </tr>
+    <tr>
+        <td> Edition : </td>
+        <td> @Model.Edition</td>
+    </tr>
+    <tr>
+        <td> Author Name : </td>
+        <td>  @Model.author.Name</td>
+    </tr>
+    <tr>
+        <td> Describtion : </td>
+        <td> @Model.author.Describtion</td>
+    </tr>
+
+
+</table>
+
+
+
+
+

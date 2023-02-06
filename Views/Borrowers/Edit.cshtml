@@ -1,0 +1,81 @@
+﻿@model WebApplication1.Models.Borrower
+
+@{
+    ViewData["Title"] = "Edit";
+
+    // ViewBag.Boo = new SelectList(ViewBag.Book, "id", "Title");
+    List<Books> ls = ViewBag.Book;
+    List<Books> book_ls = new List<Books>();
+    List<Books> remained_ls = new List<Books>();
+    foreach (var item in ls)
+    {
+        if (item.BorrowBooks != null)
+        {
+            BorrowBook b = item.BorrowBooks.FirstOrDefault(e => e.BorrowerID == Model.id);
+            if (b != null)
+            {
+                book_ls.Add(item);
+                continue;
+            }
+        }
+        if (item.BookCount > 0)
+        {
+            remained_ls.Add(item);
+        }
+
+    }
+    ViewBag.firsele=new SelectList(book_ls, "id", "Title");
+    ViewBag.secsele=new SelectList(remained_ls, "id", "Title");
+}
+
+<h1>Edit</h1>
+
+<h4>Borrower</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfRecieve" class="control-label"></label>
+                <input asp-for="DateOfRecieve" class="form-control" />
+                <span asp-validation-for="DateOfRecieve" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfBorrow" class="control-label"></label>
+                <input asp-for="DateOfBorrow" class="form-control" />
+                <span asp-validation-for="DateOfBorrow" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Remove Book</label>
+                <select asp-for="BookToRemove" asp-items="ViewBag.firsele">
+                    <option value=0> Select Book to remove</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Add Book</label>
+                <select asp-for="BookID" asp-items="ViewBag.secsele">
+                    <option value=0> Select Book to add</option>
+                </select>
+            </div>
+
+            <input type="hidden"  asp-for="@Model.BorrowBooks" value="@Model.BorrowBooks" />       @*3mlt el line da 3l4an el property mtrg34 b null*@
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

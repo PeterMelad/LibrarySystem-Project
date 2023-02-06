@@ -1,0 +1,39 @@
+﻿@model WebApplication1.Models.Authors
+
+
+<h1>Author Details </h1>
+
+<p>
+    @Html.ActionLink("Back To List", "Index")
+</p>
+
+
+<table class="table">
+    <tr>
+        <td> Author Name : </td>
+        <td>  @Model.Name</td>
+    </tr>
+    <tr>
+        <td> Describtion : </td>
+        <td> @Model.Describtion</td>
+    </tr>
+    <tr>
+        <td> Books Title</td>
+
+        @foreach (var item in Model.book)
+        {
+            <td>@item.Title</td>
+        }
+    </tr>
+    <tr>
+        <td> Books Edition</td>
+
+        @foreach (var item in Model.book)
+        {
+            <td>@item.Edition</td>
+        }
+    </tr>
+</table>
+
+
+

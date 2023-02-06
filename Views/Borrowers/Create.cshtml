@@ -1,0 +1,59 @@
+﻿@model WebApplication1.Models.Borrower
+
+@{
+    ViewData["Title"] = "Create";
+    List<Books> ls = ViewBag.Book;
+    List<Books> ls2 = new List<Books>();
+    for (int i = 0; i < ls.Count; i++)
+    {
+        if (ls[i].BookCount != 0)
+        {
+            ls2.Add(ls[i]);
+        }
+    }
+    ViewBag.Borrow = new SelectList(ls2, "id", "Title");
+}
+
+
+<h1>Create</h1>
+
+<h4>Borrower</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfRecieve" class="control-label"></label>
+                <input asp-for="DateOfRecieve" class="form-control" />
+                <span asp-validation-for="DateOfRecieve" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfBorrow" class="control-label"></label>
+                <input asp-for="DateOfBorrow" class="form-control" />
+                <span asp-validation-for="DateOfBorrow" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">What are the books you want to borrow?</label>
+                <select  asp-for="BookID" asp-items="ViewBag.Borrow">
+                    </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
